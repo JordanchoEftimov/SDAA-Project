@@ -12,6 +12,12 @@
 #### Задачи завршени по Домашни:
 1. [Домашна 1 - Задачи](https://github.com/JordanchoEftimov/SDAA-Project/projects/1)
 ***
+GUI Mock Up-oт е достапен на следниов [линк](https://www.figma.com/file/VhvlczVrJGkE7SqGzx0UKI/Bustops?node-id=0%3A1).
+Во прилог е слика на која се гледаат сите главни погледи за апликацијата;
+<p align="center">
+	<img src="https://i.ibb.co/tJ9VGnQ/Untitled.png">
+</p>
+***
 Дополнително, домашните работи ќе се изработуваат секоја на посебна гранка (**branch**) во Github репозиториумот.
 ***
 ### Членови на тимот:
