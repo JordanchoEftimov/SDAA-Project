@@ -17,6 +17,7 @@ GUI Mock Up-oт е достапен на следниов [линк](https://www
 <p align="center">
 	<img src="https://i.ibb.co/tJ9VGnQ/Untitled.png">
 </p>
+
 ***
 Дополнително, домашните работи ќе се изработуваат секоја на посебна гранка (**branch**) во Github репозиториумот.
 ***
