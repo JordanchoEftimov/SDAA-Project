@@ -1,0 +1,29 @@
+// importing fonts
+@font-face {
+    font-family: "AmaticSC";
+    src: url("../fonts/AmaticSC-Regular.ttf") format("truetype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "AmaticSC";
+    src: url("../fonts/AmaticSC-Bold.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Sen";
+    src: url("../fonts/Sen-Regular.ttf") format("truetype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Sen";
+    src: url("../fonts/Sen-Bold.ttf") format("truetype");
+    font-weight: 500;
+}
+
+$font-family-base: 'Sen';
+
+@import "~bootstrap/scss/bootstrap";
+
