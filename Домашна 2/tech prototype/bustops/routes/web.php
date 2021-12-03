@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::inertia('/', 'Homepage');
+Route::inertia('/bus-stops', 'BusStops');
+Route::inertia('/about-us', 'AboutUs');
+Route::inertia('/report-a-problem', 'ReportProblem');

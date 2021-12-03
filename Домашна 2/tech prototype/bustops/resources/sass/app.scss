@@ -27,3 +27,56 @@ $font-family-base: 'Sen';
 
 @import "~bootstrap/scss/bootstrap";
 
+@include media-breakpoint-down(md) {
+    .navbar-brand > img {
+        width: 30vw;
+    }
+}
+
+.red-circle {
+    background-color: #DD4141;
+    border-radius: 100%;
+}
+
+@include media-breakpoint-down(md) {
+    .red-circle {
+        width: 140vw;
+        height: 140vw;
+        right: -75vw;
+        top: -30vw;
+    }
+}
+
+@include media-breakpoint-only(md) {
+    .red-circle {
+        width: 90vw;
+        height: 90vw;
+        right: -25vw;
+        top: -15vw;
+    }
+
+    .homepage-logo img {
+        width: 60vw;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .red-circle {
+        width: 70vw;
+        height: 70vw;
+        right: -15vw;
+        top: -20vw;
+    }
+}
+
+.amatic-sc-font {
+    font-family: AmaticSC,serif;
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
+.line-height-normal {
+    line-height: normal;
+}

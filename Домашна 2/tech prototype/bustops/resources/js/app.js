@@ -3,6 +3,7 @@ import 'bootstrap'
 import { createInertiaApp, Link } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
 Vue.component('Link', Link)
+Vue.prototype.$route = route;
 InertiaProgress.init()
 createInertiaApp({
     resolve: name => {
