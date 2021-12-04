@@ -6,10 +6,11 @@
                 <div class="container-fluid d-flex align-items-start pt-3">
                     <Link class="navbar-brand" href="/">
                         <img
+                            :class="{'d-none d-lg-inline-block': $page.component === 'Homepage'}"
                             src="/images/logo.png"
                             alt="Logo"/>
                     </Link>
-                    <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row align-items-center mb-2 mb-lg-0">
                         <div class="d-lg-none me-3">
                             <img height="25" src="/images/gb-flag.jpg"/>
                         </div>
