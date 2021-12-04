@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BusStopController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::inertia('/', 'Homepage');
-Route::inertia('/bus-stops', 'BusStops');
-Route::inertia('/about-us', 'AboutUs');
-Route::inertia('/report-a-problem', 'ReportProblem');
+Route::get('/', [PageController::class, 'homepage'])->name('homepage');
+Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
+
+Route::resource('report', ReportController::class)->only(['create']);
+Route::resource('bus_stops', BusStopController::class)->only(['index']);

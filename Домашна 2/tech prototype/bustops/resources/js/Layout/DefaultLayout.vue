@@ -65,17 +65,17 @@ export default {
                 },
                 {
                     name: 'Постојки',
-                    link: '/bus-stops',
+                    link: this.$route('bus_stops.index'),
                     component: 'BusStops'
                 },
                 {
                     name: 'За нас',
-                    link: '/about-us',
+                    link: this.$route('about_us'),
                     component: 'AboutUs'
                 },
                 {
                     name: 'Помош',
-                    link: '/report-a-problem',
+                    link: this.$route('report.create'),
                     component: 'ReportProblem'
                 },
             ]

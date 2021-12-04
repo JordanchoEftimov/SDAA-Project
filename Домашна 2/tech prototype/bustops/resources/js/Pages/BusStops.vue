@@ -13,8 +13,9 @@
                         Пребарај
                     </button>
                 </div>
-                <div class="p-3 bg-white bus-stops d-none d-lg-block">
-                    <div v-for="bus_stop in bus_stops"
+                <div class="p-3 bg-white bus-stops d-none d-lg-block"
+                     style="height: 35vw; overflow-y: scroll">
+                    <div v-for="bus_stop in localBusStops"
                          class="bus-stops bg-danger text-white d-flex flex-row align-items-start justify-content-between mb-2 p-3 fs-4">
                         <div class="d-flex align-items-start">
                             <div class="fw-bold me-2">
@@ -25,6 +26,10 @@
                             </div>
                         </div>
                     </div>
+                    <button @click="loadMore" v-if="pagination"
+                            class="btn btn-lg w-100 btn-outline-danger border-radius-12px">
+                        Прикажи повеќе
+                    </button>
                 </div>
             </div>
             <div class="col col-12 col-lg-6">
@@ -38,40 +43,35 @@
 
 <script>
 import DefaultLayout from "../Layout/DefaultLayout";
+import axios from 'axios';
 
 export default {
     name: "BusStops",
     layout: DefaultLayout,
+    props: {
+        bus_stops: Object
+    },
     data() {
         return {
-            bus_stops: [
-                {
-                    number: '185',
-                    name: 'Центар Рекорд - кон Запад'
-                },
-                {
-                    number: '186',
-                    name: 'Центар Рекорд - кон Исток'
-                },
-                {
-                    number: '187',
-                    name: 'Градска Болница'
-                },
-                {
-                    number: '188',
-                    name: 'Зелен Пазар'
-                },
-                {
-                    number: '189',
-                    name: 'Југодрво - кон Центар'
-                },
-                {
-                    number: '190',
-                    name: 'Југодрво - Олимписки Базен'
-                },
-            ]
+            loadingMore: false,
+            localBusStops: this.bus_stops.data,
+            pagination: this.bus_stops
         }
-    }
+    },
+    methods: {
+        async loadMore() {
+            this.loadingMore = true;
+            try {
+                const res = await axios.get(this.pagination.next_page_url)
+                this.localBusStops = [...this.localBusStops, ...res.data.data];
+                this.pagination = res.data;
+            } catch (err) {
+                console.error(err)
+            } finally {
+                this.loadingMore = false;
+            }
+        },
+    },
 }
 </script>
 
@@ -85,6 +85,10 @@ export default {
 #search-button {
     border-radius: 10px;
     right: 1rem;
+}
+
+.border-radius-12px {
+    border-radius: 12px;
 }
 
 .bus-stops {
