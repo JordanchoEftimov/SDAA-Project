@@ -12,13 +12,38 @@
                 <div class="display-6 text-center mb-2 d-lg-none">
                     Пријави проблем
                 </div>
-                <form class="border-radius-10px bg-white p-3 p-md-4">
-                    <input class="form-control form-control-lg mb-4" type="text" placeholder="Име">
-                    <input class="form-control form-control-lg mb-4" type="text" placeholder="Презиме">
-                    <input class="form-control form-control-lg mb-4" type="text" placeholder="Е-маил">
-                    <textarea class="form-control mb-4" placeholder="Опис на проблемот"></textarea>
-                    <div class="text-end">
-                        <button class="btn btn-lg px-3 btn-danger border-radius-10px">
+                <form @submit.prevent="submit" class="border-radius-10px bg-white p-3 p-md-4">
+                    <div class="mb-4">
+                        <input :class="{'is-invalid': form.errors.name}" v-model="form.name"
+                               class="form-control form-control-lg" type="text" placeholder="Име">
+                        <div class="invalid-feedback">{{ form.errors.name }}</div>
+                    </div>
+                    <div class="mb-4">
+                        <input :class="{'is-invalid': form.errors.surname}" v-model="form.surname"
+                               class="form-control form-control-lg" type="text"
+                               placeholder="Презиме">
+                        <div class="invalid-feedback">{{ form.errors.surname }}</div>
+                    </div>
+                    <div class="mb-4">
+                        <input :class="{'is-invalid': form.errors.email}" v-model="form.email"
+                               class="form-control form-control-lg" type="text"
+                               placeholder="Е-маил">
+                        <div class="invalid-feedback">{{ form.errors.email }}</div>
+                    </div>
+                    <div class="mb-4">
+                        <textarea :class="{'is-invalid': form.errors.description}" v-model="form.description"
+                                  class="form-control"
+                                  placeholder="Опис на проблемот"></textarea>
+                        <div class="invalid-feedback">{{ form.errors.description }}</div>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-between">
+                        <div>
+                            <div v-if="successful" class="text-success fs-5 line-height-normal text-end mb-4">Успешно го
+                                пријавивте проблемот!
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg px-3 btn-danger border-radius-10px">
                             Испрати
                         </button>
                     </div>
@@ -36,7 +61,29 @@ import DefaultLayout from "../Layout/DefaultLayout";
 
 export default {
     name: "ReportProblem",
-    layout: DefaultLayout
+    layout: DefaultLayout,
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: '',
+                surname: '',
+                email: '',
+                description: ''
+            }),
+            successful: false
+        }
+    },
+    methods: {
+        submit() {
+            this.form.post(this.$route('report.store'), {
+                onSuccess: () => {
+                    this.form.reset();
+                    this.successful = true
+                    setTimeout(() => this.successful = false, 4000);
+                }
+            });
+        }
+    }
 }
 </script>
 
