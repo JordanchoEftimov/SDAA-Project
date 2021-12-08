@@ -87,7 +87,10 @@ export default {
         async loadMore() {
             this.loadingMore = true;
             try {
-                const res = await axios.get(this.pagination.next_page_url + '&query=' + this.query)
+                let res;
+                if (this.query)
+                    res = await axios.get(this.pagination.next_page_url + '&query=' + this.query)
+                else res = await axios.get(this.pagination.next_page_url)
                 this.localBusStops = [...this.localBusStops, ...res.data.data];
                 this.pagination = res.data;
             } catch (err) {
