@@ -14,8 +14,9 @@
                         Пребарај
                     </button>
                 </form>
-                <div class="p-3 bg-white bus-stops d-none d-lg-block"
-                     style="height: 35vw; overflow-y: scroll">
+                <div class="p-3 bg-white bus-stops d-lg-block shadow shadow-lg"
+                     style="height: 35vw; overflow-y: scroll"
+                     :class="{'d-none' : !this.query}">
                     <div v-for="bus_stop in localBusStops"
                          @click="selectedBusStop = bus_stop"
                          :class="{'bg-danger text-white' : !selectedBusStop || selectedBusStop.id !== bus_stop.id,
@@ -53,7 +54,7 @@
 <script>
 import DefaultLayout from "../Layout/DefaultLayout";
 import axios from 'axios';
-import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
+import {LMap, LTileLayer, LMarker, LPopup} from 'vue2-leaflet';
 import {Icon} from 'leaflet';
 
 export default {
@@ -66,7 +67,8 @@ export default {
     components: {
         LMap,
         LTileLayer,
-        LMarker
+        LMarker,
+        LPopup
     },
     data() {
         return {
