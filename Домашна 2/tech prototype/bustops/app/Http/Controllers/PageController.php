@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusStop;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -10,7 +11,8 @@ class PageController extends Controller
 {
     public function homepage(): Response
     {
-        return Inertia::render('Homepage');
+        $bus_stops_count = BusStop::query()->count();
+        return Inertia::render('Homepage', compact('bus_stops_count'));
     }
 
     public function about_us(): Response

@@ -8,7 +8,8 @@
                 </div>
                 <div class="fs-3 line-height-normal d-none d-lg-block mb-5">
                     Ги лоцираме сите постојки во Скопје<br/>
-                    за да може да ја пронајдете најблиската до вас!
+                    за да може да ја пронајдете најблиската до вас!<br/><br/>
+                    Можете да пребарувате помеѓу {{ bus_stops_count }} достапни постојки.
                 </div>
                 <div class="pe-lg-5">
                     <div class="form-floating mb-3 position-relative">
@@ -38,7 +39,10 @@ import DefaultLayout from "../Layout/DefaultLayout";
 
 export default {
     name: "Homepage",
-    layout: DefaultLayout
+    layout: DefaultLayout,
+    props: {
+        bus_stops_count: Number
+    }
 }
 </script>
 
