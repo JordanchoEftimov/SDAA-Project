@@ -17,7 +17,10 @@
                 <div class="p-3 bg-white bus-stops d-none d-lg-block"
                      style="height: 35vw; overflow-y: scroll">
                     <div v-for="bus_stop in localBusStops"
-                         class="bus-stops bg-danger text-white d-flex flex-row align-items-start justify-content-between mb-2 p-3 fs-4">
+                         @click="selectedBusStop = bus_stop"
+                         :class="{'bg-danger text-white' : !selectedBusStop || selectedBusStop.id !== bus_stop.id,
+                         'border border-2 border-danger text-danger': selectedBusStop && selectedBusStop.id === bus_stop.id}"
+                         class="bus-stops cursor-pointer d-flex flex-row align-items-start justify-content-between mb-2 p-3 fs-4">
                         <div class="d-flex align-items-start">
                             <div class="fw-bold me-2">
                                 {{ bus_stop.number }}
@@ -34,9 +37,14 @@
                 </div>
             </div>
             <div class="col col-12 col-lg-6">
-                <iframe width="100%" height="520" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                        src="https://www.openstreetmap.org/export/embed.html?bbox=21.459109783172607%2C42.00011784898377%2C21.46361589431763%2C42.00317145931405&amp;layer=mapnik"
-                        style="border: 1px solid black"></iframe>
+                <l-map style="height: 580px" :zoom="zoom" :center="lat_lon">
+                    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+                    <l-marker v-if="selectedBusStop" :lat-lng="lat_lon" :icon="icon()">
+                        <l-popup v-if="selectedBusStop.number" v-html="selectedBusStop.number">
+                            <b></b>
+                        </l-popup>
+                    </l-marker>
+                </l-map>
             </div>
         </div>
     </div>
@@ -45,6 +53,8 @@
 <script>
 import DefaultLayout from "../Layout/DefaultLayout";
 import axios from 'axios';
+import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
+import {Icon} from 'leaflet';
 
 export default {
     name: "BusStops",
@@ -52,6 +62,11 @@ export default {
     props: {
         bus_stops: Object,
         query: String
+    },
+    components: {
+        LMap,
+        LTileLayer,
+        LMarker
     },
     data() {
         return {
@@ -61,6 +76,11 @@ export default {
             search: this.$inertia.form({
                 query: this.query,
             }),
+            selectedBusStop: null,
+            url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            attribution:
+                '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+            zoom: 15,
         }
     },
     methods: {
@@ -85,7 +105,23 @@ export default {
                 return data
             }).get(this.$route('bus_stops.index'), {preserveScroll: true})
         },
+        icon() {
+            return new Icon({
+                iconUrl: '/images/marker-icon.png',
+                shadowUrl: '/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+        }
     },
+    computed: {
+        lat_lon() {
+            return [(this.selectedBusStop ? Number(this.selectedBusStop.lat) : 41.99479675293),
+                (this.selectedBusStop ? Number(this.selectedBusStop.lon) : 21.43000793457)]
+        }
+    }
 }
 </script>
 

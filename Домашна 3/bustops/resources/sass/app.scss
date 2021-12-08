@@ -70,7 +70,7 @@ $font-family-base: 'Sen';
 }
 
 .amatic-sc-font {
-    font-family: AmaticSC,serif;
+    font-family: AmaticSC, serif;
 }
 
 body, html {
@@ -79,4 +79,8 @@ body, html {
 
 .line-height-normal {
     line-height: normal;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
