@@ -5,14 +5,15 @@
                 <div class="text-center d-lg-none amatic-sc-font display-6 mb-5">
                     Ги лоцираме сите постојки во Скопје за<br/>да може да ја пронајдете најблиската до вас!
                 </div>
-                <div class="form-floating mb-3 position-relative">
-                    <input type="text" class="form-control" id="search" placeholder="Пребарајте постојка...">
+                <form @submit.prevent="submit" class="form-floating mb-3 position-relative">
+                    <input v-model="search.query" type="text" class="form-control" id="search"
+                           placeholder="Пребарајте постојка...">
                     <label for="search">Пребарајте постојка...</label>
-                    <button id="search-button"
+                    <button type="submit" id="search-button"
                             class="btn btn-danger position-absolute top-50 fw-bold px-3 translate-middle-y">
                         Пребарај
                     </button>
-                </div>
+                </form>
                 <div class="p-3 bg-white bus-stops d-none d-lg-block"
                      style="height: 35vw; overflow-y: scroll">
                     <div v-for="bus_stop in localBusStops"
@@ -26,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <button @click="loadMore" v-if="pagination"
+                    <button @click="loadMore" v-if="pagination.next_page_url"
                             class="btn btn-lg w-100 btn-outline-danger border-radius-12px">
                         Прикажи повеќе
                     </button>
@@ -49,20 +50,24 @@ export default {
     name: "BusStops",
     layout: DefaultLayout,
     props: {
-        bus_stops: Object
+        bus_stops: Object,
+        query: String
     },
     data() {
         return {
             loadingMore: false,
             localBusStops: this.bus_stops.data,
-            pagination: this.bus_stops
+            pagination: this.bus_stops,
+            search: this.$inertia.form({
+                query: this.query,
+            }),
         }
     },
     methods: {
         async loadMore() {
             this.loadingMore = true;
             try {
-                const res = await axios.get(this.pagination.next_page_url)
+                const res = await axios.get(this.pagination.next_page_url + '&query=' + this.query)
                 this.localBusStops = [...this.localBusStops, ...res.data.data];
                 this.pagination = res.data;
             } catch (err) {
@@ -70,6 +75,15 @@ export default {
             } finally {
                 this.loadingMore = false;
             }
+        },
+        submit() {
+            this.search.transform(a => {
+                const data = {...a}
+                Object.keys(data).forEach(b => {
+                    if (!data[b]) delete data[b]
+                })
+                return data
+            }).get(this.$route('bus_stops.index'), {preserveScroll: true})
         },
     },
 }

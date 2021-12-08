@@ -12,14 +12,15 @@
                     Можете да пребарувате помеѓу {{ bus_stops_count }} достапни постојки.
                 </div>
                 <div class="pe-lg-5">
-                    <div class="form-floating mb-3 position-relative">
-                        <input type="text" class="form-control" id="search" placeholder="Пребарајте постојка...">
+                    <form @submit.prevent="submit" class="form-floating mb-3 position-relative">
+                        <input v-model="search.query" type="text" class="form-control" id="search"
+                               placeholder="Пребарајте постојка...">
                         <label for="search">Пребарајте постојка...</label>
-                        <button id="search-button"
+                        <button type="submit" id="search-button"
                                 class="btn btn-danger position-absolute top-50 fw-bold px-3 translate-middle-y">
                             Пребарај
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="col col-12 col-lg-6">
@@ -42,6 +43,24 @@ export default {
     layout: DefaultLayout,
     props: {
         bus_stops_count: Number
+    },
+    data() {
+        return {
+            search: this.$inertia.form({
+                query: this.query,
+            }),
+        }
+    },
+    methods: {
+        submit() {
+            this.search.transform(a => {
+                const data = {...a}
+                Object.keys(data).forEach(b => {
+                    if (!data[b]) delete data[b]
+                })
+                return data
+            }).get(this.$route('bus_stops.index'), {preserveScroll: false})
+        },
     }
 }
 </script>

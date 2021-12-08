@@ -12,10 +12,14 @@ class BusStopController extends Controller
 {
     public function index(Request $request)
     {
-        $bus_stops = BusStop::query()->paginate(9);
+        $query = $request->get('query');
+        $bus_stops = BusStop::query()->when($query, function ($q, $query) {
+            $q->where(fn($q) => $q->where('name', 'LIKE', '%' . $query . '%')
+                ->orWhere('number', 'LIKE', '%' . $query . '%'));
+        })->paginate(9);
 
         if ($request->wantsJson()) return JsonResource::make($bus_stops);
 
-        return Inertia::render('BusStops', compact('bus_stops'));
+        return Inertia::render('BusStops', compact('bus_stops', 'query'));
     }
 }
