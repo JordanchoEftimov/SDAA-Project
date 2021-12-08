@@ -19,5 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
 Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
 
-Route::resource('report', ReportController::class)->only(['create']);
+Route::resource('report', ReportController::class)->only(['create', 'store']);
 Route::resource('bus_stops', BusStopController::class)->only(['index']);
