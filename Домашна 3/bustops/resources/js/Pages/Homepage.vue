@@ -1,0 +1,56 @@
+<template>
+    <div class="pt-2 pb-5 pt-md-5 px-lg-5">
+        <div class="row">
+            <div class="col col-12 col-lg-6 mb-5 mb-lg-0">
+                <div class="display-1 amatic-sc-font text-center text-lg-start pt-md-4 mb-5 mb-lg-3">
+                    Пребарајте постојка,<br/>
+                    бидете на време!
+                </div>
+                <div class="fs-3 line-height-normal d-none d-lg-block mb-5">
+                    Ги лоцираме сите постојки во Скопје<br/>
+                    за да може да ја пронајдете најблиската до вас!
+                </div>
+                <div class="pe-lg-5">
+                    <div class="form-floating mb-3 position-relative">
+                        <input type="text" class="form-control" id="search" placeholder="Пребарајте постојка...">
+                        <label for="search">Пребарајте постојка...</label>
+                        <button id="search-button"
+                                class="btn btn-danger position-absolute top-50 fw-bold px-3 translate-middle-y">
+                            Пребарај
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-12 col-lg-6">
+                <div class="text-center d-lg-none homepage-logo">
+                    <img src="/images/logo.png" alt="Logo" width="250"/>
+                </div>
+                <div class="d-none d-lg-block">
+                    <img src="/images/bus.png" alt="Bus image" width="700"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import DefaultLayout from "../Layout/DefaultLayout";
+
+export default {
+    name: "Homepage",
+    layout: DefaultLayout
+}
+</script>
+
+<style scoped>
+#search {
+    border: 1px solid rgba(0, 0, 0, 0.82);
+    box-sizing: border-box;
+    border-radius: 160px;
+}
+
+#search-button {
+    border-radius: 10px;
+    right: 1rem;
+}
+</style>
