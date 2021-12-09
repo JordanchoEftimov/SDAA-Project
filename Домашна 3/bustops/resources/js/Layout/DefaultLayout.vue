@@ -12,7 +12,7 @@
                     </Link>
                     <div class="d-flex flex-row align-items-center mb-2 mb-lg-0">
                         <div class="d-lg-none me-3">
-                            <img height="25" src="/images/gb-flag.jpg"/>
+                            <LanguageSelector/>
                         </div>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -28,10 +28,10 @@
                                   :class="{'active': route.component === $page.component}"
                                   :href="route.link"
                                   class="nav-item me-lg-3 px-4 py-1 mb-2 mb-lg-0" as="button"
-                                  type="button">{{ route.name }}
+                                  type="button">{{ __(route.name) }}
                             </Link>
                             <div class="d-none d-lg-block">
-                                <img height="25" src="/images/gb-flag.jpg"/>
+                                <LanguageSelector/>
                             </div>
                         </div>
                     </div>
@@ -42,8 +42,8 @@
         <footer class="py-3 py-lg-5 px-2 px-md-5">
             <div class="hr mb-1"></div>
             <div class="d-flex flex-row align-items-center justify-content-between">
-                <div class="fs-7">Скопе 1000</div>
-                <div class="fs-7">© 2021 Bustops, сите права се заштитени.</div>
+                <div class="fs-7">{{ __('Скопје 1000') }}</div>
+                <div class="fs-7">{{ __('© 2021 Bustops, сите права се заштитени.') }}</div>
             </div>
         </footer>
     </div>
@@ -51,9 +51,11 @@
 
 <script>
 import {Collapse} from "bootstrap";
+import LanguageSelector from "../Components/LanguageSelector";
 
 export default {
     name: "DefaultLayout",
+    components: {LanguageSelector},
     data() {
         return {
             collapse: null,
@@ -69,7 +71,7 @@ export default {
                     component: 'BusStops'
                 },
                 {
-                    name: 'За нас',
+                    name: 'За Нас',
                     link: this.$route('about_us'),
                     component: 'AboutUs'
                 },

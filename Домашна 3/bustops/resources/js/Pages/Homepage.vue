@@ -3,22 +3,22 @@
         <div class="row">
             <div class="col col-12 col-lg-6 mb-5 mb-lg-0">
                 <div class="display-1 amatic-sc-font text-center text-lg-start pt-md-4 mb-5 mb-lg-3">
-                    Пребарајте постојка,<br/>
-                    бидете на време!
+                    {{ __('Пребарајте постојка') }},<br/>
+                    {{ __('бидете на време!') }}
                 </div>
                 <div class="fs-3 line-height-normal d-none d-lg-block mb-5">
-                    Ги лоцираме сите постојки во Скопје<br/>
-                    за да може да ја пронајдете најблиската до вас!<br/><br/>
-                    Можете да пребарувате помеѓу {{ bus_stops_count }} достапни постојки.
+                    {{ __('Ги лоцираме сите постојки во Скопје') }}<br/>
+                    {{ __('за да може да ја пронајдете најблиската до вас!') }}<br/><br/>
+                    {{ __('Можете да пребарувате помеѓу') }} {{ bus_stops_count }} {{ __('достапни постојки') }}.
                 </div>
                 <div class="pe-lg-5">
                     <form @submit.prevent="submit" class="form-floating mb-3 position-relative">
                         <input v-model="search.query" type="text" class="form-control" id="search"
-                               placeholder="Пребарајте постојка...">
-                        <label for="search">Пребарајте постојка...</label>
+                               placeholder=".">
+                        <label for="search">{{ __('Пребарајте постојка') }}...</label>
                         <button type="submit" id="search-button"
                                 class="btn btn-danger position-absolute top-50 fw-bold px-3 translate-middle-y">
-                            Пребарај
+                            {{ __('Пребарај') }}
                         </button>
                     </form>
                 </div>

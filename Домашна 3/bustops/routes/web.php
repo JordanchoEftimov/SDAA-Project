@@ -21,3 +21,10 @@ Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
 
 Route::resource('report', ReportController::class)->only(['create', 'store']);
 Route::resource('bus_stops', BusStopController::class)->only(['index']);
+
+Route::get('language/{language}', function ($language) {
+    Session()->put('locale', $language);
+
+    return redirect()->back();
+})->name('language');
+

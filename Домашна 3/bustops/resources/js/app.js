@@ -10,6 +10,7 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-popup', LPopup);
 Vue.component('Link', Link)
+Vue.mixin(require('./base'))
 Vue.prototype.$route = route;
 InertiaProgress.init()
 createInertiaApp({

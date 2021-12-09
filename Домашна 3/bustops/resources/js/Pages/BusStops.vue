@@ -3,15 +3,16 @@
         <div class="row">
             <div class="col col-12 col-lg-6 mb-4 mb-lg-0">
                 <div class="text-center d-lg-none amatic-sc-font display-6 mb-5">
-                    Ги лоцираме сите постојки во Скопје за<br/>да може да ја пронајдете најблиската до вас!
+                    {{ __('Ги лоцираме сите постојки во Скопје за') }}<br/>
+                    {{ __('да може да ја пронајдете најблиската до вас!') }}
                 </div>
                 <form @submit.prevent="submit" class="form-floating mb-3 position-relative">
                     <input v-model="search.query" type="text" class="form-control" id="search"
-                           placeholder="Пребарајте постојка...">
-                    <label for="search">Пребарајте постојка...</label>
+                           placeholder=".">
+                    <label for="search">{{ __('Пребарајте постојка') }}...</label>
                     <button type="submit" id="search-button"
                             class="btn btn-danger position-absolute top-50 fw-bold px-3 translate-middle-y">
-                        Пребарај
+                        {{ __('Пребарај') }}
                     </button>
                 </form>
                 <div class="p-3 bg-white bus-stops d-lg-block shadow shadow-lg"
@@ -27,13 +28,13 @@
                                 {{ bus_stop.number }}
                             </div>
                             <div class="line-height-normal">
-                                {{ bus_stop.name }}
+                                {{ __(bus_stop.name) }}
                             </div>
                         </div>
                     </div>
                     <button @click="loadMore" v-if="pagination.next_page_url"
                             class="btn btn-lg w-100 btn-outline-danger border-radius-12px">
-                        Прикажи повеќе
+                        {{ __('Прикажи повеќе') }}
                     </button>
                 </div>
             </div>
