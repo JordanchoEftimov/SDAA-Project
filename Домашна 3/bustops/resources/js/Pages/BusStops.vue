@@ -18,9 +18,12 @@
                 <button class="btn btn-danger btn-lg border-radius-12px mb-3 w-100" @click="getLocation">
                     {{ __('ПРИКАЖИ МОЈА ЛОКАЦИЈА') }}
                 </button>
-                <div class="p-3 bg-white bus-stops d-lg-block shadow shadow-lg"
+                <div class="p-3 bg-white bus-stops d-lg-block shadow-lg"
                      style="height: 35vw; overflow-y: scroll"
                      :class="{'d-none' : !this.query}">
+                    <div v-if="!localBusStops.length" class="fs-1 text-danger line-height-normal fw-bold text-center">
+                        Не постојат постојки според вашето пребарување!
+                    </div>
                     <div v-for="bus_stop in localBusStops"
                          @click="selectedBusStop = bus_stop"
                          :class="{'bg-danger text-white' : !selectedBusStop || selectedBusStop.id !== bus_stop.id,
@@ -51,6 +54,8 @@
                     </l-marker>
                     <l-marker v-if="userLat && userLon" :lat-lng="user_lat_lon" :icon="icon()">
                     </l-marker>
+                    <l-polyline v-if="selectedBusStop && userLon && userLat" :lat-lngs="[user_lat_lon, lat_lon]"
+                                :color="'#DD4141'"></l-polyline>
                 </l-map>
             </div>
         </div>
