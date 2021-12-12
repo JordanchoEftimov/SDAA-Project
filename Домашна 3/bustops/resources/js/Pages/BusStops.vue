@@ -15,6 +15,9 @@
                         {{ __('Пребарај') }}
                     </button>
                 </form>
+                <button class="btn btn-danger btn-lg border-radius-12px mb-3 w-100" @click="getLocation">
+                    {{ __('ПРИКАЖИ МОЈА ЛОКАЦИЈА') }}
+                </button>
                 <div class="p-3 bg-white bus-stops d-lg-block shadow shadow-lg"
                      style="height: 35vw; overflow-y: scroll"
                      :class="{'d-none' : !this.query}">
@@ -45,6 +48,8 @@
                         <l-popup v-if="selectedBusStop.number" v-html="selectedBusStop.number">
                             <b></b>
                         </l-popup>
+                    </l-marker>
+                    <l-marker v-if="userLat && userLon" :lat-lng="user_lat_lon" :icon="icon()">
                     </l-marker>
                 </l-map>
             </div>
@@ -83,7 +88,9 @@ export default {
             url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             attribution:
                 '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-            zoom: 15,
+            zoom: 11,
+            userLat: null,
+            userLon: null
         }
     },
     methods: {
@@ -120,12 +127,24 @@ export default {
                 popupAnchor: [1, -34],
                 shadowSize: [41, 41]
             });
+        },
+        getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(this.showPosition);
+            }
+        },
+        showPosition(position) {
+            this.userLat = position.coords.latitude
+            this.userLon = position.coords.longitude;
         }
     },
     computed: {
         lat_lon() {
             return [(this.selectedBusStop ? Number(this.selectedBusStop.lat) : 41.99479675293),
                 (this.selectedBusStop ? Number(this.selectedBusStop.lon) : 21.43000793457)]
+        },
+        user_lat_lon() {
+            return this.userLat && this.userLon ? [this.userLat, this.userLon] : [41.99479675293, 21.43000793457];
         }
     }
 }
