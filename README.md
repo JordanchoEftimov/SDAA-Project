@@ -20,6 +20,7 @@
 #### Задачи завршени по Домашни:
 1. [Домашна 1 - Задачи](https://github.com/JordanchoEftimov/SDAA-Project/projects/1)
 2. [Домашна 2 - Задачи](https://github.com/JordanchoEftimov/SDAA-Project/projects/2)
+3. [Домашна 3 - Задачи](https://github.com/JordanchoEftimov/SDAA-Project/projects/3)
 ***
 GUI Mock Up-oт е достапен на следниов [линк](https://www.figma.com/file/VhvlczVrJGkE7SqGzx0UKI/Bustops?node-id=0%3A1).
 Во прилог е слика на која се гледаат сите главни погледи за апликацијата;
