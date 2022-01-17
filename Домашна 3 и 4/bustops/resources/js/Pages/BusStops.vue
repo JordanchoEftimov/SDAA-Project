@@ -99,14 +99,16 @@ export default {
         }
     },
     methods: {
+        // function for loading more bus stops
         async loadMore() {
             this.loadingMore = true;
             try {
                 let res;
-                if (this.query)
-                    res = await axios.get(this.pagination.next_page_url + '&query=' + this.query)
+                // if a query exists, then send the request for loading more bus stops with the included query
+                if (this.query) res = await axios.get(this.pagination.next_page_url + '&query=' + this.query)
+                // if a query is not present, then load the next page of bus stops without any query
                 else res = await axios.get(this.pagination.next_page_url)
-                this.localBusStops = [...this.localBusStops, ...res.data.data];
+                this.localBusStops = [...this.localBusStops, ...res.data.data]; // append the loaded bus stops to the existing array of bus stops
                 this.pagination = res.data;
             } catch (err) {
                 console.error(err)
@@ -133,6 +135,7 @@ export default {
                 shadowSize: [41, 41]
             });
         },
+        // function that returns the location of the user
         getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(this.showPosition);
@@ -144,10 +147,12 @@ export default {
         }
     },
     computed: {
+        // compute the latitude and longitude of the selected bus stop if one is selected
         lat_lon() {
             return [(this.selectedBusStop ? Number(this.selectedBusStop.lat) : 41.99479675293),
                 (this.selectedBusStop ? Number(this.selectedBusStop.lon) : 21.43000793457)]
         },
+        // compute the user location if the user gives permission to the application
         user_lat_lon() {
             return this.userLat && this.userLon ? [this.userLat, this.userLon] : [41.99479675293, 21.43000793457];
         }

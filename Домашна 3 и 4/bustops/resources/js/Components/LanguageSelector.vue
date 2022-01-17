@@ -10,15 +10,13 @@
 <script>
 import MacedonianFlag from "./MacedonianFlag";
 import USAFlag from "./USAFlag";
+
 export default {
     name: "LanguageSelector",
     components: {USAFlag, MacedonianFlag},
     computed: {
         selectable_locale() {
-            if (this.$page.props.locale === 'mk') {
-                return 'en';
-            }
-            return 'mk'
+            return this.$page.props.locale === 'mk' ? 'en' : 'mk'
         }
     },
 }
