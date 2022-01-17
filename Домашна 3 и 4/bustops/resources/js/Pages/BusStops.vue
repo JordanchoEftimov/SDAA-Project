@@ -37,18 +37,8 @@
                 </div>
             </div>
             <div class="col col-12 col-lg-6">
-                <l-map style="height: 580px" :zoom="zoom" :center="lat_lon">
-                    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-                    <l-marker v-if="selectedBusStop" :lat-lng="lat_lon" :icon="icon()">
-                        <l-popup v-if="selectedBusStop.number" v-html="selectedBusStop.number">
-                            <b></b>
-                        </l-popup>
-                    </l-marker>
-                    <l-marker v-if="userLat && userLon" :lat-lng="user_lat_lon" :icon="icon()">
-                    </l-marker>
-                    <l-polyline v-if="selectedBusStop && userLon && userLat" :lat-lngs="[user_lat_lon, lat_lon]"
-                                :color="'#DD4141'"></l-polyline>
-                </l-map>
+                <Map :user-lat="userLat" :user-lon="userLon" :user_lat_lon="user_lat_lon" :lat_lon="lat_lon"
+                     :selected-bus-stop="selectedBusStop"/>
             </div>
         </div>
     </div>
@@ -57,9 +47,8 @@
 <script>
 import DefaultLayout from "../Layout/DefaultLayout";
 import axios from 'axios';
-import {LMap, LTileLayer, LMarker, LPopup} from 'vue2-leaflet';
-import {Icon} from 'leaflet';
 import SearchBar from "../Components/SearchBar";
+import Map from "../Components/Map";
 
 export default {
     name: "BusStops",
@@ -69,11 +58,8 @@ export default {
         query: String
     },
     components: {
+        Map,
         SearchBar,
-        LMap,
-        LTileLayer,
-        LMarker,
-        LPopup
     },
     data() {
         return {
@@ -81,10 +67,6 @@ export default {
             localBusStops: this.bus_stops.data,
             pagination: this.bus_stops,
             selectedBusStop: null,
-            url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            attribution:
-                '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-            zoom: 11,
             userLat: null,
             userLon: null
         }
@@ -106,16 +88,6 @@ export default {
             } finally {
                 this.loadingMore = false;
             }
-        },
-        icon() {
-            return new Icon({
-                iconUrl: '/images/marker-icon.png',
-                shadowUrl: '/images/marker-shadow.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41]
-            });
         },
         // function that returns the location of the user
         getLocation() {
