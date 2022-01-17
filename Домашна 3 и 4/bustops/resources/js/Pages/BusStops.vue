@@ -17,18 +17,8 @@
                         Не постојат постојки според вашето пребарување!
                     </div>
                     <div v-for="bus_stop in localBusStops"
-                         @click="selectedBusStop = bus_stop"
-                         :class="{'bg-danger text-white' : !selectedBusStop || selectedBusStop.id !== bus_stop.id,
-                         'border border-2 border-danger text-danger': selectedBusStop && selectedBusStop.id === bus_stop.id}"
-                         class="bus-stops cursor-pointer d-flex flex-row align-items-start justify-content-between mb-2 p-3 fs-4">
-                        <div class="d-flex align-items-start">
-                            <div class="fw-bold me-2">
-                                {{ bus_stop.number }}
-                            </div>
-                            <div class="line-height-normal">
-                                {{ __(bus_stop.name) }}
-                            </div>
-                        </div>
+                         @click="selectedBusStop = bus_stop">
+                        <BusStopListItem :selected-bus-stop="selectedBusStop" :bus_stop="bus_stop"/>
                     </div>
                     <button @click="loadMore" v-if="pagination.next_page_url"
                             class="btn btn-lg w-100 btn-outline-danger border-radius-12px">
@@ -49,6 +39,7 @@ import DefaultLayout from "../Layout/DefaultLayout";
 import axios from 'axios';
 import SearchBar from "../Components/SearchBar";
 import Map from "../Components/Map";
+import BusStopListItem from "../Components/BusStopListItem";
 
 export default {
     name: "BusStops",
@@ -58,6 +49,7 @@ export default {
         query: String
     },
     components: {
+        BusStopListItem,
         Map,
         SearchBar,
     },
