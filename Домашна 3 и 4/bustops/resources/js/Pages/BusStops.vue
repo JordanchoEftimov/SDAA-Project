@@ -64,7 +64,6 @@ export default {
         }
     },
     methods: {
-        // function for loading more bus stops
         async loadMore() {
             this.loadingMore = true;
             try {
@@ -81,7 +80,6 @@ export default {
                 this.loadingMore = false;
             }
         },
-        // function that returns the location of the user
         getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(this.showPosition);
@@ -93,12 +91,10 @@ export default {
         }
     },
     computed: {
-        // compute the latitude and longitude of the selected bus stop if one is selected
         lat_lon() {
             return [(this.selectedBusStop ? Number(this.selectedBusStop.lat) : 41.99479675293),
                 (this.selectedBusStop ? Number(this.selectedBusStop.lon) : 21.43000793457)]
         },
-        // compute the user location if the user gives permission to the application
         user_lat_lon() {
             return this.userLat && this.userLon ? [this.userLat, this.userLon] : [41.99479675293, 21.43000793457];
         }

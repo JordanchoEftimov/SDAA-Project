@@ -11,7 +11,6 @@ use Inertia\Response;
 
 class BusStopController extends Controller
 {
-    // function that returns all the bus stops with pagination (9 bus stops per page)
     public function index(Request $request)
     {
         $query = $request->get('query');
