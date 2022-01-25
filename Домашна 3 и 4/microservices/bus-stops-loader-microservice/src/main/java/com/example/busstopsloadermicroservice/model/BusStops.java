@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class BusStops {
     @Id
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "number")
     private Integer number;
@@ -27,7 +27,7 @@ public class BusStops {
     @Column(name = "lon")
     private Double lon;
 
-    public BusStops(Integer id, Integer number, String name, Double lat, Double lon) {
+    public BusStops(Long id, Integer number, String name, Double lat, Double lon) {
         this.id = id;
         this.number = number;
         this.name = name;
