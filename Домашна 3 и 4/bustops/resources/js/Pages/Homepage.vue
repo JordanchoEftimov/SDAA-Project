@@ -9,7 +9,10 @@
                 <div class="fs-3 line-height-normal d-none d-lg-block mb-5">
                     {{ __('Ги лоцираме сите постојки во Скопје') }}<br/>
                     {{ __('за да може да ја пронајдете најблиската до вас!') }}<br/><br/>
-                    {{ __('Можете да пребарувате помеѓу') }} {{ bus_stops_count }} {{ __('достапни постојки') }}.
+                    {{ __('Можете да пребарувате помеѓу') }}
+                    <span v-if="!loading">{{ bus_stops_count }}</span>
+                    <span class="fst-italic" v-else>{{ __('Се вчитува').toLowerCase() }}</span>
+                    {{ __('достапни постојки') }}.
                 </div>
                 <form @submit.prevent="submit" class="pe-lg-5">
                     <div class="form-floating mb-3 position-relative">
@@ -37,22 +40,28 @@
 
 <script>
 import DefaultLayout from "../Layout/DefaultLayout";
+import axios from "axios";
 
 export default {
     name: "Homepage",
     layout: DefaultLayout,
-    props: {
-        bus_stops_count: Number
-    },
     data() {
         return {
-            query: ''
+            query: '',
+            bus_stops_count: 0,
+            loading: false
         }
     },
     methods: {
         submit() {
             this.$inertia.get(this.$route('bus_stops.index', {query: this.query}))
         }
+    },
+    async mounted() {
+        this.loading = true
+        await axios.get("https://bus-stops-loader.herokuapp.com/api/busStops")
+            .then(response => (this.bus_stops_count = response.data.totalItems))
+        this.loading = false
     }
 }
 </script>

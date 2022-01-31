@@ -11,8 +11,7 @@ class PageController extends Controller
 {
     public function homepage(): Response
     {
-        $bus_stops_count = BusStop::query()->count();
-        return Inertia::render('Homepage', compact('bus_stops_count'));
+        return Inertia::render('Homepage');
     }
 
     public function about_us(): Response
